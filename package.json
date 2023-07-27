@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watchandRun": "nodemon ./src/index.js",
-    "compileAndWatch": "tsc -w"
+    "watchandRun": "nodemon ./src/Task2/scripts/index.ts",
+    "compileAndWatch": "tsc -w ./src/Task2/scripts/index.ts"
   },
   "author": "",
   "license": "ISC",
