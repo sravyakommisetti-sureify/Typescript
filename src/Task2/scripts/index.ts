@@ -16,13 +16,24 @@ class User {
     this.userCount = 0;
   }
   addUser(currUser: UserType): void {
+    localStorage.setItem("username", currUser.username);
+    localStorage.setItem("password", currUser.password);
+    localStorage.setItem("status", currUser.status);
     this.userList.push(currUser);
+    this.userCount += 1;
   }
   getUser(curUserName: string, pass: string) {
-    const res = this.userList.find(
-      ({ username, password }) => username === curUserName && password === pass
-    );
-    return res;
+    const localUserName = localStorage.getItem("username") as string;
+    const localPassWord = localStorage.getItem("password") as string;
+    const localStatus = localStorage.getItem("status") as string;
+    if (
+      localUserName === curUserName &&
+      localPassWord === pass &&
+      localStatus === "Active"
+    ) {
+      return true;
+    }
+    return false;
   }
 }
 const masterUserData = new User();
@@ -48,7 +59,7 @@ class SignUp {
 function loginEvent(username: string, password: string) {
   const loginUser: Login = new Login();
   if (loginUser.authenticate(username, password)) {
-    // return to dashboard
+    window.location.href = "./dashboard.html";
     return true;
   }
   alert("Login unsucessful");
@@ -63,17 +74,16 @@ function signupEvent(username: string, password: string) {
     status: Status.Active,
   });
 }
-
-const loginSubmit = document.getElementById("loginButton");
+const loginFormSubmit = document.getElementById("loginForm") as HTMLFormElement;
 const signupSubmit = document.getElementById("signupButton");
 const usernameInput = document.getElementById("username") as HTMLInputElement;
 const passwordInput = document.getElementById("password") as HTMLInputElement;
-loginSubmit?.addEventListener("click", function () {
-  console.log("ganeshaaa");
+
+loginFormSubmit?.addEventListener("submit", function (event) {
+  event.preventDefault();
   loginEvent(usernameInput.value, passwordInput.value);
 });
 
 signupSubmit?.addEventListener("click", function () {
-  console.log("Ganeshaaa");
   signupEvent(usernameInput.value, passwordInput.value);
 });

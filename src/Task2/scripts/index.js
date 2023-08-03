@@ -9,14 +9,22 @@ var User = /** @class */ (function () {
         this.userCount = 0;
     }
     User.prototype.addUser = function (currUser) {
+        localStorage.setItem("username", currUser.username);
+        localStorage.setItem("password", currUser.password);
+        localStorage.setItem("status", currUser.status);
         this.userList.push(currUser);
+        this.userCount += 1;
     };
     User.prototype.getUser = function (curUserName, pass) {
-        var res = this.userList.find(function (_a) {
-            var username = _a.username, password = _a.password;
-            return username === curUserName && password === pass;
-        });
-        return res;
+        var localUserName = localStorage.getItem("username");
+        var localPassWord = localStorage.getItem("password");
+        var localStatus = localStorage.getItem("status");
+        if (localUserName === curUserName &&
+            localPassWord === pass &&
+            localStatus === "Active") {
+            return true;
+        }
+        return false;
     };
     return User;
 }());
@@ -46,7 +54,7 @@ var SignUp = /** @class */ (function () {
 function loginEvent(username, password) {
     var loginUser = new Login();
     if (loginUser.authenticate(username, password)) {
-        // return to dashboard
+        window.location.href = "./dashboard.html";
         return true;
     }
     alert("Login unsucessful");
@@ -57,18 +65,17 @@ function signupEvent(username, password) {
     signupUser.signUp({
         username: username,
         password: password,
-        status: Status.Active
+        status: Status.Active,
     });
 }
-var loginSubmit = document.getElementById("loginButton");
+var loginFormSubmit = document.getElementById("loginForm");
 var signupSubmit = document.getElementById("signupButton");
 var usernameInput = document.getElementById("username");
 var passwordInput = document.getElementById("password");
-loginSubmit === null || loginSubmit === void 0 ? void 0 : loginSubmit.addEventListener("click", function () {
-    console.log("ganeshaaa");
+loginFormSubmit === null || loginFormSubmit === void 0 ? void 0 : loginFormSubmit.addEventListener("submit", function (event) {
+    event.preventDefault();
     loginEvent(usernameInput.value, passwordInput.value);
 });
 signupSubmit === null || signupSubmit === void 0 ? void 0 : signupSubmit.addEventListener("click", function () {
-    console.log("Ganeshaaa");
     signupEvent(usernameInput.value, passwordInput.value);
 });
