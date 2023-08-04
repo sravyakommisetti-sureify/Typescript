@@ -4,7 +4,7 @@ interface UserType {
   status: Status;
 }
 
-enum Status {
+export enum Status {
   Active = "Active",
   Blocked = "Blocked",
 }
@@ -56,7 +56,7 @@ class SignUp {
   }
 }
 
-function loginEvent(username: string, password: string) {
+export function loginEvent(username: string, password: string) {
   const loginUser: Login = new Login();
   if (loginUser.authenticate(username, password)) {
     window.location.href = "./dashboard.html";
@@ -66,7 +66,7 @@ function loginEvent(username: string, password: string) {
   return false;
 }
 
-function signupEvent(username: string, password: string) {
+export function signupEvent(username: string, password: string) {
   const signupUser: SignUp = new SignUp();
   signupUser.signUp({
     username: username,
@@ -74,10 +74,12 @@ function signupEvent(username: string, password: string) {
     status: Status.Active,
   });
 }
-const loginFormSubmit = document.getElementById("loginForm") as HTMLFormElement;
-const signupSubmit = document.getElementById("signupButton");
-const usernameInput = document.getElementById("username") as HTMLInputElement;
-const passwordInput = document.getElementById("password") as HTMLInputElement;
+const loginFormSubmit = document?.getElementById(
+  "loginForm"
+) as HTMLFormElement;
+const signupSubmit = document?.getElementById("signupButton");
+const usernameInput = document?.getElementById("username") as HTMLInputElement;
+const passwordInput = document?.getElementById("password") as HTMLInputElement;
 
 loginFormSubmit?.addEventListener("submit", function (event) {
   event.preventDefault();

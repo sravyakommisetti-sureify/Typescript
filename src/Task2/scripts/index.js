@@ -1,8 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.signupEvent = exports.loginEvent = exports.Status = void 0;
 var Status;
 (function (Status) {
     Status["Active"] = "Active";
     Status["Blocked"] = "Blocked";
-})(Status || (Status = {}));
+})(Status || (exports.Status = Status = {}));
 var User = /** @class */ (function () {
     function User() {
         this.userList = [];
@@ -60,6 +63,7 @@ function loginEvent(username, password) {
     alert("Login unsucessful");
     return false;
 }
+exports.loginEvent = loginEvent;
 function signupEvent(username, password) {
     var signupUser = new SignUp();
     signupUser.signUp({
@@ -68,10 +72,11 @@ function signupEvent(username, password) {
         status: Status.Active,
     });
 }
-var loginFormSubmit = document.getElementById("loginForm");
-var signupSubmit = document.getElementById("signupButton");
-var usernameInput = document.getElementById("username");
-var passwordInput = document.getElementById("password");
+exports.signupEvent = signupEvent;
+var loginFormSubmit = document === null || document === void 0 ? void 0 : document.getElementById("loginForm");
+var signupSubmit = document === null || document === void 0 ? void 0 : document.getElementById("signupButton");
+var usernameInput = document === null || document === void 0 ? void 0 : document.getElementById("username");
+var passwordInput = document === null || document === void 0 ? void 0 : document.getElementById("password");
 loginFormSubmit === null || loginFormSubmit === void 0 ? void 0 : loginFormSubmit.addEventListener("submit", function (event) {
     event.preventDefault();
     loginEvent(usernameInput.value, passwordInput.value);
